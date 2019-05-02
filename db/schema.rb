@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_02_171733) do
+ActiveRecord::Schema.define(version: 2019_05_02_172529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,13 @@ ActiveRecord::Schema.define(version: 2019_05_02_171733) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "gifs_tags", id: false, force: :cascade do |t|
+    t.bigint "gif_id", null: false
+    t.bigint "tag_id", null: false
+    t.index ["gif_id", "tag_id"], name: "index_gifs_tags_on_gif_id_and_tag_id"
+    t.index ["tag_id", "gif_id"], name: "index_gifs_tags_on_tag_id_and_gif_id"
   end
 
   create_table "tags", force: :cascade do |t|
