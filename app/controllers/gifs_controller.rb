@@ -25,6 +25,10 @@ class GifsController < ApplicationController
   # POST /gifs.json
   def create
     @gif = Gif.new(gif_params)
+    tags = params[:gif][:tags].split(",")
+    tags.map! { |t| Tag.where(label: t).first_or_create }
+
+    @gif.tags = tags
 
     respond_to do |format|
       if @gif.save
